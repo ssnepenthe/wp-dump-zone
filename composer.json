@@ -1,0 +1,15 @@
+{
+    "name": "ssnepenthe/wp-dump-zone",
+    "require": {
+        "symfony/var-dumper": "^5.4 || ^6.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/dz.php"
+        ],
+        "psr-4": {
+            "DumpZone\\": "src/"
+        }
+    }
+}
