@@ -7,6 +7,7 @@ use Symfony\Component\VarDumper\Cloner\ClonerInterface;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\ContextProvider\SourceContextProvider;
 use Symfony\Component\VarDumper\Dumper\ContextualizedDumper;
+use Symfony\Component\VarDumper\Dumper\DataDumperInterface;
 use Symfony\Component\VarDumper\Dumper\HtmlDumper;
 
 final class DumpZone
@@ -72,6 +73,11 @@ final class DumpZone
         }
 
         return static::$cloner;
+    }
+
+    public static function setDumper(DataDumperInterface $dumper)
+    {
+        static::$dumper = $dumper;
     }
 
     public static function setCloner(ClonerInterface $cloner)
