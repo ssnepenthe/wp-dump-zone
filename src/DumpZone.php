@@ -37,7 +37,7 @@ final class DumpZone
     public static function dump($var)
     {
         if (! static::$registered) {
-            \add_action(static::$renderHook, function () {
+            \add_action(static::$renderHook, static function () {
                 include __DIR__ . '/dump-zone-template.php';
             }, static::$renderHookPriority);
 
