@@ -52,9 +52,9 @@ final class DumpZone
         });
     }
 
-    public static function getDumper(): ContextualizedDumper
+    public static function getDumper(): DataDumperInterface
     {
-        if (! static::$dumper instanceof HtmlDumper) {
+        if (! static::$dumper instanceof DataDumperInterface) {
             static::$dumper = new ContextualizedDumper(
                 new HtmlDumper(),
                 [new SourceContextProvider()]
