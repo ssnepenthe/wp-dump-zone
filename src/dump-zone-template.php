@@ -13,6 +13,7 @@
         transform: translateY(100%);
         transition: transform 0.2s;
         width: 100%;
+        z-index: 9991; /* Ensures we are in front of #adminmenuwrap */
     }
 
     .dz-active {

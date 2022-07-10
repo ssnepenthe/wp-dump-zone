@@ -28,4 +28,4 @@ Replace calls to the `dump()` function with calls to the `dz()` function. That's
 
 The underlying cloner and dumper instances can be overridden using the corresponding setters: `DumpZone\DumpZone::setCloner()` and `DumpZone\DumpZone::setDumper()`.
 
-By default, the dump zone is rendered in the `wp_footer` hook at a priority of `999`. These values can also be changed using the corresponding setters: `DumpZone\DumpZone::setRenderHook()` and `DumpZone\DumpZone::setRenderHookPriority()`.
+By default, the dump zone is rendered in the `admin_footer` and `wp_footer` hooks at a priority of `999`. You can add an additional render hook using `DumpZone\DumpZone::addRenderHook()` or override the render hooks list completely using `DumpZone\DumpZone::setRenderHooks()`.

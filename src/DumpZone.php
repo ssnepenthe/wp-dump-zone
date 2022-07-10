@@ -16,30 +16,38 @@ final class DumpZone
     private static $dumpCount = 0;
     private static $dumper;
     private static $registered = false;
-    private static $renderHook = 'wp_footer';
-    private static $renderHookPriority = 999;
+    private static $renderHooks = [
+        ['admin_footer', 999],
+        ['wp_footer', 999],
+    ];
 
     public static function getDumpCount(): int
     {
         return static::$dumpCount;
     }
 
-    public static function setRenderHook(string $renderHook)
+    public static function addRenderHook(string $hook, int $priority): void
     {
-        static::$renderHook = $renderHook;
+        static::$renderHooks[] = [$hook, $priority];
     }
 
-    public static function setRenderHookPriority(int $renderHookPriority)
+    public static function setRenderHooks(array $renderHooks)
     {
-        static::$renderHookPriority = $renderHookPriority;
+        static::$renderHooks = [];
+
+        foreach ($renderHooks as [$hook, $priority]) {
+            static::addRenderHook($hook, $priority);
+        }
     }
 
     public static function dump($var)
     {
         if (! static::$registered) {
-            \add_action(static::$renderHook, static function () {
-                include __DIR__ . '/dump-zone-template.php';
-            }, static::$renderHookPriority);
+            foreach (static::$renderHooks as [$hook, $priority]) {
+                \add_action($hook, static function () {
+                    include __DIR__ . '/dump-zone-template.php';
+                }, $priority);
+            }
 
             static::$registered = true;
         }
