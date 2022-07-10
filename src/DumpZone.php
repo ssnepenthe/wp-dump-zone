@@ -75,6 +75,11 @@ final class DumpZone
         return static::$cloner;
     }
 
+    public static function renderDumps(): void
+    {
+        \do_action(__CLASS__);
+    }
+
     public static function setDumper(DataDumperInterface $dumper)
     {
         static::$dumper = $dumper;

@@ -87,6 +87,6 @@
     </button>
 
     <div class="dz-output">
-        <?php \do_action(DumpZone::class); ?>
+        <?php DumpZone::renderDumps(); ?>
     </div>
 </div>
