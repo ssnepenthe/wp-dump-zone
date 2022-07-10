@@ -31,7 +31,7 @@ final class DumpZone
         static::$renderHooks[] = [$hook, $priority];
     }
 
-    public static function setRenderHooks(array $renderHooks)
+    public static function setRenderHooks(array $renderHooks): void
     {
         static::$renderHooks = [];
 
@@ -40,7 +40,7 @@ final class DumpZone
         }
     }
 
-    public static function dump($var)
+    public static function dump($var): void
     {
         if (! static::$registered) {
             foreach (static::$renderHooks as [$hook, $priority]) {
@@ -88,12 +88,12 @@ final class DumpZone
         \do_action(__CLASS__);
     }
 
-    public static function setDumper(DataDumperInterface $dumper)
+    public static function setDumper(DataDumperInterface $dumper): void
     {
         static::$dumper = $dumper;
     }
 
-    public static function setCloner(ClonerInterface $cloner)
+    public static function setCloner(ClonerInterface $cloner): void
     {
         static::$cloner = $cloner;
     }
