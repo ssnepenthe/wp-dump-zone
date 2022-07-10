@@ -56,17 +56,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.querySelector('.dz-dump-zone');
             const toggle = document.querySelector('.dz-toggle');
-            const toggleLabel = document.querySelector('.dz-toggle-label');
 
             toggle.addEventListener('click', () => {
                 container.classList.toggle('dz-active');
                 document.body.classList.toggle('dz-overflow-hidden');
-
-                if (container.classList.contains('dz-active')) {
-                    toggleLabel.textContent = toggleLabel.textContent.replace('Show', 'Hide');
-                } else {
-                    toggleLabel.textContent = toggleLabel.textContent.replace('Hide', 'Show');
-                }
             });
         });
     })();
@@ -83,7 +76,7 @@
         </svg>
 
         <span class="dz-toggle-label">
-            Show Dumps (<?= DumpZone::getDumpCount(); ?>)
+            Toggle Dump Zone (<?= DumpZone::getDumpCount(); ?>)
         </span>
     </button>
 
