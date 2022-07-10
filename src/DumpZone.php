@@ -21,23 +21,9 @@ final class DumpZone
         ['wp_footer', 999],
     ];
 
-    public static function getDumpCount(): int
-    {
-        return static::$dumpCount;
-    }
-
     public static function addRenderHook(string $hook, int $priority): void
     {
         static::$renderHooks[] = [$hook, $priority];
-    }
-
-    public static function setRenderHooks(array $renderHooks): void
-    {
-        static::$renderHooks = [];
-
-        foreach ($renderHooks as [$hook, $priority]) {
-            static::addRenderHook($hook, $priority);
-        }
     }
 
     public static function dump($var): void
@@ -61,6 +47,21 @@ final class DumpZone
         });
     }
 
+    public static function getCloner(): ClonerInterface
+    {
+        if (! static::$cloner instanceof ClonerInterface) {
+            static::$cloner = new VarCloner();
+            static::$cloner->addCasters(ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
+        }
+
+        return static::$cloner;
+    }
+
+    public static function getDumpCount(): int
+    {
+        return static::$dumpCount;
+    }
+
     public static function getDumper(): DataDumperInterface
     {
         if (! static::$dumper instanceof DataDumperInterface) {
@@ -73,19 +74,14 @@ final class DumpZone
         return static::$dumper;
     }
 
-    public static function getCloner(): ClonerInterface
-    {
-        if (! static::$cloner instanceof ClonerInterface) {
-            static::$cloner = new VarCloner();
-            static::$cloner->addCasters(ReflectionCaster::UNSET_CLOSURE_FILE_INFO);
-        }
-
-        return static::$cloner;
-    }
-
     public static function renderDumps(): void
     {
         \do_action(__CLASS__);
+    }
+
+    public static function setCloner(ClonerInterface $cloner): void
+    {
+        static::$cloner = $cloner;
     }
 
     public static function setDumper(DataDumperInterface $dumper): void
@@ -93,8 +89,12 @@ final class DumpZone
         static::$dumper = $dumper;
     }
 
-    public static function setCloner(ClonerInterface $cloner): void
+    public static function setRenderHooks(array $renderHooks): void
     {
-        static::$cloner = $cloner;
+        static::$renderHooks = [];
+
+        foreach ($renderHooks as [$hook, $priority]) {
+            static::addRenderHook($hook, $priority);
+        }
     }
 }
